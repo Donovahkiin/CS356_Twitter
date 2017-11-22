@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs356_twitter;
-
-// Possible modification: setup the list such that it's one list able to hold 
-//  both User and Group objects. 
 
 import cs356_twitter.User;
 import java.util.ArrayList;
@@ -19,9 +11,11 @@ public class Group implements Selectable{    // extends user?
     private boolean inGroup = false;
     private List<User> users = new ArrayList<User>();
     private List<Group> groups = new ArrayList<Group>();
+    private long creationTime;
     
     public Group(String input) {
         ID = input;
+        creationTime = System.currentTimeMillis();
     }
     
     /** Group/User objects will be used as tree nodes; override toString so it
@@ -59,5 +53,9 @@ public class Group implements Selectable{    // extends user?
     
     public void accept(Visitor v) {
         v.atGroup(this);
+    }
+    
+    public long getCreationTime() {
+        return creationTime;
     }
 }

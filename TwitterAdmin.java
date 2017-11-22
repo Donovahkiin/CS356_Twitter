@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs356_twitter;
 
 import java.util.HashMap;
@@ -79,6 +74,8 @@ public class TwitterAdmin extends javax.swing.JFrame {
         ShowUserTotal = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         UserTree = new javax.swing.JTree();
+        VerifyIDs = new javax.swing.JButton();
+        LastUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +140,20 @@ public class TwitterAdmin extends javax.swing.JFrame {
         UserTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane1.setViewportView(UserTree);
 
+        VerifyIDs.setText("Verify IDs");
+        VerifyIDs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerifyIDsActionPerformed(evt);
+            }
+        });
+
+        LastUpdate.setText("Last Updated User");
+        LastUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LastUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,14 +166,16 @@ public class TwitterAdmin extends javax.swing.JFrame {
                     .addComponent(OpenUserView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSplitPane1)
                     .addComponent(jSplitPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ShowTweetTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(ShowUserTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(VerifyIDs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ShowTweetTotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(ShowUserTotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ShowGroupTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                            .addComponent(PercentagePositive, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                            .addComponent(PercentagePositive, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(LastUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,7 +197,11 @@ public class TwitterAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ShowTweetTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PercentagePositive, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(PercentagePositive, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LastUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(VerifyIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -243,6 +260,39 @@ public class TwitterAdmin extends javax.swing.JFrame {
         iterateVisitor(percent);
         System.out.println(percent.returnTotal());
     }//GEN-LAST:event_PercentagePositiveActionPerformed
+
+    private void VerifyIDsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyIDsActionPerformed
+    /** This button is meant to check if all IDs are unique, and if none contain a space in their name.
+    /*  The program already checked for unique IDs when each one was added, so that step is skipped here. */
+        boolean valid = true;
+        for(String entry : map.keySet())   // for every key in our map
+        {
+            if(entry.contains(" ")) 
+            {
+                valid = false;
+                break;
+            }
+        }
+        System.out.println("Valid IDs: " + valid);
+    }//GEN-LAST:event_VerifyIDsActionPerformed
+
+    private void LastUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastUpdateActionPerformed
+        long maxTime = 0;
+        String recentUser = "";
+        for(Map.Entry entry : map.entrySet()) {
+            if (entry.getValue() instanceof User) 
+            {
+                User temp = (User) entry.getValue();
+                if (maxTime < temp.getLastUpdateTime()) 
+                {
+                    recentUser = temp.toString();
+                    maxTime = temp.getLastUpdateTime();
+                }
+            }
+        }
+        
+        System.out.println("Most recently updated user: " + recentUser);
+    }//GEN-LAST:event_LastUpdateActionPerformed
 
     private void iterateVisitor(Visitor visitorType) {
         for (Map.Entry<String, Selectable> entry : map.entrySet())      // for every entry in our map
@@ -319,6 +369,7 @@ public class TwitterAdmin extends javax.swing.JFrame {
     private javax.swing.JButton AddGroup;
     private javax.swing.JButton AddUser;
     private javax.swing.JTextField GroupID;
+    private javax.swing.JButton LastUpdate;
     private javax.swing.JButton OpenUserView;
     private javax.swing.JButton PercentagePositive;
     private javax.swing.JButton ShowGroupTotal;
@@ -326,6 +377,7 @@ public class TwitterAdmin extends javax.swing.JFrame {
     private javax.swing.JButton ShowUserTotal;
     private javax.swing.JTextField UserID;
     private javax.swing.JTree UserTree;
+    private javax.swing.JButton VerifyIDs;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;

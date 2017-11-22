@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs356_twitter;
 
 import java.util.List;
@@ -18,12 +13,16 @@ public class User extends Subject implements Observer, Selectable{
     private boolean hasWindow = false;
     private UserView userWindow;
     private String feed = "";
+    private long creationTime;
+    private long lastUpdateTime;
     
     private List<Subject> subscriptions = new ArrayList<Subject>();
     
     public User(String input) 
     {
         ID = input;     // this changes the ID in Subject superclass
+        creationTime = System.currentTimeMillis();
+        lastUpdateTime = System.currentTimeMillis();
     }
 
     /** Group/User objects will be used as tree nodes; override toString so it
@@ -47,6 +46,7 @@ public class User extends Subject implements Observer, Selectable{
     public void update(Subject subject) {
         feed = subject.getID() + ": ";
         feed += subject.getTweet() + "\n";
+        lastUpdateTime = System.currentTimeMillis();
         userWindow.updateNewsFeed(feed);
     }
     
@@ -76,5 +76,13 @@ public class User extends Subject implements Observer, Selectable{
     
     public void accept(Visitor v) {
         v.atUser(this);
+    }
+    
+    public long getCreationTime() {
+        return creationTime;
+    }
+    
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
     }
 }

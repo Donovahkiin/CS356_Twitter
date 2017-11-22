@@ -31,19 +31,21 @@
                   <Component id="OpenUserView" max="32767" attributes="0"/>
                   <Component id="jSplitPane1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jSplitPane2" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ShowTweetTotal" pref="225" max="32767" attributes="0"/>
-                          <Component id="ShowUserTotal" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="VerifyIDs" alignment="0" max="32767" attributes="0"/>
+                          <Component id="ShowTweetTotal" alignment="0" pref="225" max="32767" attributes="0"/>
+                          <Component id="ShowUserTotal" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="ShowGroupTotal" pref="213" max="32767" attributes="0"/>
                           <Component id="PercentagePositive" pref="0" max="32767" attributes="0"/>
+                          <Component id="LastUpdate" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,6 +70,11 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ShowTweetTotal" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
                           <Component id="PercentagePositive" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="LastUpdate" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
+                          <Component id="VerifyIDs" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -191,5 +198,21 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="VerifyIDs">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Verify IDs"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerifyIDsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="LastUpdate">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Last Updated User"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LastUpdateActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
